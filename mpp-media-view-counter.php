@@ -6,7 +6,7 @@
  * Plugin URI: http://buddydev.com/plugins/mpp-media-view-counter/
  * Author: BuddyDev Team
  * Author URI: BuddyDev.com
- * Description: Count Media Views and show total media views for MediaPress media.
+ * Description: Count Media Views and show total media views for MediaPress photo, audio video etc.
  */
 
 class MPP_Media_View_Counter {
@@ -23,13 +23,12 @@ class MPP_Media_View_Counter {
 		//setup hooks
 		$this->setup_hooks();
 		
-		$this->load_textdomain();
-		
 	}
 	
 	private function setup_hooks() {
 		//load required files when MediaPress is loaded
 		add_action( 'mpp_loaded', array( $this, 'load' ) );
+		add_action( 'mpp_init', array( $this, 'load_textdomain' ) );
 	}
 	
 	
