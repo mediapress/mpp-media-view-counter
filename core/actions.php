@@ -17,6 +17,7 @@ class MPP_Media_View_Counter_Actions_Helper {
 		
 		//show the count on single media page/lightbox
 		add_action( 'mpp_after_media_item', array( $this, 'gallery_media_entry' ) );
+		add_action( 'mpp_after_single_media_item', array( $this, 'gallery_media_entry' ) );
 		add_action( 'mpp_after_lightbox_media', array( $this, 'lightbox_media_entry' ) );
 	}
 	
@@ -41,7 +42,7 @@ class MPP_Media_View_Counter_Actions_Helper {
 		}
 		
 		mpp_media_increment_view_count( $media );
-		
+				
 	}
 	
 	public function gallery_media_entry() {
