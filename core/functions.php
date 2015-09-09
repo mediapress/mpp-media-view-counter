@@ -35,8 +35,24 @@ function mpp_media_update_view_count( $media, $count = 0 ) {
 	
 	$count = absint( $count );
 	
-	return mpp_update_media_meta( $media_id, '_mpp_view_count', $count );
+	//doing direct query is better here
+	global $wpdb;
 	
+	$query = $wpdb->prepare( "UPDATE {$wpdb->postmeta} SET meta_value = %d WHERE meta_key = %s AND post_id = %d ", $count, '_mpp_view_count', $media_id );
+	
+	$wpdb->query( $query );
+	
+	//update meta cache
+	$cache_key = 'post_meta';
+	$cached_object = wp_cache_get( $media_id, $cache_key );
+	$cached_object['_mpp_view_count'] = array( 0 => $count );
+	
+	wp_cache_set( $media_id, $cached_object, $cache_key );
+	
+	return $count;
+	//we do not use update_post_meta as that uses 4 db queries
+	//using direct update save 3 db queries
+	//return mpp_update_media_meta( $media_id, '_mpp_view_count', $count );
 	
 }
 /**
