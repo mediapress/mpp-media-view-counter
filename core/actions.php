@@ -37,7 +37,7 @@ class MPP_Media_View_Counter_Actions_Helper {
 			$media = mpp_get_media( $media );
 		}
 		
-		if( ! mpp_get_option( 'count_uploader_user_views' ) && $media->user_id == get_current_user_id() ) {
+		if( ! mpp_get_option( 'media_view_counter_count_uploader_views' ) && $media->user_id == get_current_user_id() ) {
 			return ;//do not count for the media uploader's own view if it is disabled in the backend
 		}
 		
@@ -48,15 +48,30 @@ class MPP_Media_View_Counter_Actions_Helper {
 	public function gallery_media_entry() {
 		$media = mpp_get_media();
 		
+		
 		$count = mpp_media_get_view_count( $media );
-		echo '<span class="mpp-media-view-count">'. sprintf( _x( 'Total Views: %d','On single gallery media page', 'mpp-media-view-counter' ), $count ) . '</span>';
+		echo '<span class="mpp-media-view-count">'. $this->get_counter_display( $count ) . '</span>';
 	}
 	
 	public function lightbox_media_entry(  $media ) {
 		$media = mpp_get_media();
 		
 		$count = mpp_media_get_view_count( $media );
-		echo '<span class="mpp-media-view-count">'. sprintf( _x( 'Total Views: %d', 'lightbox',  'mpp-media-view-counter' ), $count ) . '</span>';
+		echo '<span class="mpp-media-view-count">'. $this->get_counter_display( $count ) . '</span>';
+	}
+	
+	public function get_counter_display( $count ) {
+		
+		$label = mpp_get_option( 'media_view_counter_label_views');
+		
+		if( ! $label ) {
+			$label = _x( 'Total Views: %d','view count display text', 'mpp-media-view-counter' );
+		}
+		
+		$count_text = sprintf( $label , $count );
+		
+		return $count_text;
+		
 	}
 }
 

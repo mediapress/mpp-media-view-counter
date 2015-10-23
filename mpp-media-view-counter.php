@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: MediaPress - Media View Counter
  * Version: 1.0.0
@@ -7,6 +6,8 @@
  * Author: BuddyDev Team
  * Author URI: BuddyDev.com
  * Description: Count Media Views and show total media views for MediaPress photo, audio video etc.
+ * License: GPL
+ * 
  */
 
 class MPP_Media_View_Counter {
@@ -41,7 +42,7 @@ class MPP_Media_View_Counter {
 		return self::$instance;
 	}
 	
-	private function load_textdomain() {
+	public function load_textdomain() {
 		
 		load_plugin_textdomain( 'mpp-media-view-counter', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 		
@@ -57,7 +58,7 @@ class MPP_Media_View_Counter {
 			'core/functions.php'
 		);
 		
-		if( is_admin() ) {
+		if( is_admin() && ! defined( 'DOING_AJAX' ) ) {
 			
 			$files[] = 'admin/admin.php';
 		}

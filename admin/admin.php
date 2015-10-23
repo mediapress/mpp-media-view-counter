@@ -37,9 +37,11 @@ class MPP_Media_View_Counter_Admin {
 		//$page = mpp_admin()->get_page();
 		
 		$panel = $page->get_panel( 'addons' );
+
 		
-		$panel->add_section( 'addon-counter', __( 'Media View Counter Settings' ) ) ->add_field( array(
-					'name'		=> 'count_uploader_user_views',
+		$panel->add_section( 'addon-counter', __( 'Media View Counter Settings', 'mpp-media-view-counter' ) ) 
+				->add_field( array(
+					'name'		=> 'media_view_counter_count_uploader_views',
 					'label'		=> __( "Count Media Owner's view to the media?", 'mpp-media-view-counter' ),
 					'type'		=> 'radio',
 					'default'	=> 1,
@@ -47,7 +49,15 @@ class MPP_Media_View_Counter_Admin {
 									1 => __( 'Yes', 'mpp-media-view-counter' ),
 									0 => __( 'No', 'mpp-media-view-counter' ),
 								)
-		) );
+				) )
+				->add_field( array(
+					'name'			=> 'media_view_counter_label_views',
+					'label'			=> __( "What label you want to display for total views", 'mpp-media-view-counter' ),
+					'type'			=> 'text',
+					'default'		=> __( "Total Views %d", 'mpp-media-view-counter' ),
+					'description'	=> __( "Please don't forget the %d. It will be replaced by actual count.", 'mpp-media-view-counter' ), 
+					
+				) );
 	}
 }
 
